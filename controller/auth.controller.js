@@ -17,7 +17,7 @@ const register = async (req, res, next) => {
 
     const emailExists = await User.findOne({ email });
     if (emailExists) {
-      throw CustomErrorHandler.UnAuthorized("use already exist");
+      throw CustomErrorHandler.UnAuthorized("email already exist");
     }
 
     const usernameExists = await User.findOne({ username });
