@@ -1,4 +1,5 @@
 const Book = require("../schema/book.schema");
+const citationSchema = require("../schema/citation.schema");
 const CustomErrorHandler = require("../utils/custom-error-handler");
 
 // Barcha kitoblarni olish
@@ -11,7 +12,7 @@ const getAllBooks = async (req, res, next) => {
   }
 };
 
-// Bitta kitobni ID bo‘yicha olish
+// get_one
 const getOneBook = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -21,13 +22,15 @@ const getOneBook = async (req, res, next) => {
       throw CustomErrorHandler.NotFound("book not found");
     }
 
-    res.status(200).json(book);
+    const foundCitation = await citationSchema.find({ book_id: id });
+
+    res.status(200).json({ book, foundCitation });
   } catch (error) {
     next(error);
   }
 };
 
-// Yangi kitob qo‘shish
+// add_book
 const addBook = async (req, res, next) => {
   try {
     const {
@@ -64,7 +67,7 @@ const addBook = async (req, res, next) => {
   }
 };
 
-// Kitobni yangilash
+// update_book
 const updateBook = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -111,7 +114,7 @@ const updateBook = async (req, res, next) => {
   }
 };
 
-// Kitobni o‘chirish
+// delete_book
 const deleteBook = async (req, res, next) => {
   try {
     const { id } = req.params;

@@ -9,6 +9,7 @@ const router = require("./router/image.routes")
 const path = require("path")
 require("dotenv").config()
 const cookieParser = require("cookie-parser")
+const citationRouter = require("./router/citation.routes")
 
 const app = express()
 
@@ -29,6 +30,7 @@ app.use(AuthorRouter)
 app.use(BookRouter)
 app.use(AuthRouter)
 app.use( router)
+app.use(citationRouter)
 
 
 app.use(errorMiddleware)
