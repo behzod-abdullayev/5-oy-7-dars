@@ -55,7 +55,7 @@ const addBook = async (req, res, next) => {
     });
 
     res.status(201).json({
-      message: "Kitob muvaffaqiyatli qo‘shildi",
+      message: "Kitob muvaffaqiyatli qo'shildi",
       book: newBook,
     });
   } catch (error) {
@@ -123,7 +123,7 @@ const deleteBook = async (req, res, next) => {
 
     await Book.findByIdAndDelete(id);
 
-    res.status(200).json({ message: "Kitob muvaffaqiyatli o‘chirildi" });
+    res.status(200).json({ message: "Kitob muvaffaqiyatli o'chirildi" });
   } catch (error) {
     next(error);
   }

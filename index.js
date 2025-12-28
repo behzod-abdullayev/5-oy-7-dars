@@ -8,15 +8,15 @@ const errorMiddleware = require("./middleware/error.middleware")
 const router = require("./router/image.routes")
 const path = require("path")
 require("dotenv").config()
-
+const cookieParser = require("cookie-parser")
 
 const app = express()
 
 const PORT = process.env.PORT || 3000
 
 app.use(cors({origin: true, credentials: true}))
-
 app.use(express.json())
+app.use(cookieParser())
 
 connectDB()
 

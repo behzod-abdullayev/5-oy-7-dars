@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const CustomErrorHandler = require("../utils/custom-error-handler");
 
 const authorization = (req, res, next) => {
   try {
@@ -75,8 +76,30 @@ const authorization2 = (req, res, next) => {
     });
   }
 };
+  const authorization3 = (req, res, next) => {
+  try {
+
+  const access_token = req.cookies.token_generator
+  
+  if (!access_token) {
+    throw CustomErrorHandler.UnAuthorized("acces token not found")
+  }
+
+  const decode = jwt.verify(access_token, process.env.SECRET_KEY)
+  req.user = decode
+
+  if(!["superadmin", "admin"].includes(req.user.role)) {
+    throw CustomErrorHandler.forbidden("you are not admin or superadmin")
+  }
+
+  next()
+  } catch (error) {
+    next(error)
+  }
+}
 
 module.exports = {
   authorization,
   authorization2,
+  authorization3
 };

@@ -1,7 +1,7 @@
 const {Router} = require("express")
 const { getAllAuthors, addAuthor, getOneAuthor, updateAuthor, deleteAuthor, search, updateadmin } = require("../controller/auther.controller")
 const authorValidationMiddleware = require("../middleware/author.validation.middleware")
-const { authorization, authorization2 } = require("../middleware/authorization")
+const { authorization, authorization2, authorization3 } = require("../middleware/authorization")
 
 
 const AuthorRouter = Router()
@@ -9,7 +9,7 @@ const AuthorRouter = Router()
 AuthorRouter.get("/get_all_authors", getAllAuthors)
 AuthorRouter.get("/get_one_author/:id", getOneAuthor)
 AuthorRouter.get("/search", search)
-AuthorRouter.post("/add_author", authorValidationMiddleware, authorization, authorization2, addAuthor )
+AuthorRouter.post("/add_author", authorValidationMiddleware, authorization3, addAuthor )
 AuthorRouter.put("/update_author/:id", authorization, authorization2, updateAuthor)
 AuthorRouter.delete("/delete_author/:id", authorization, authorization2, deleteAuthor)
 
